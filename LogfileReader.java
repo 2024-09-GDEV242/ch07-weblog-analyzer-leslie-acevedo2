@@ -16,13 +16,13 @@ import java.util.Scanner;
  *    year month day hour minute
  * Log entries are sorted into ascending order of date.
  * 
- * @author David J. Barnes and Michael Kölling.
- * @version    2016.02.29
+ * @Leslie Acevedo
+ * @version    2024.10.29
  */
 public class LogfileReader implements Iterator<LogEntry>
 {
     // The data format in the log file.
-    private String format;
+    private String format = "Year Month(1-12) Day Hour Minute";
     // Where the file's contents are stored in the form
     // of LogEntry objects.
     private ArrayList<LogEntry> entries;
@@ -115,15 +115,6 @@ public class LogfileReader implements Iterator<LogEntry>
     }
     
     /**
-     * @return A string explaining the format of the data
-     *         in the log file.
-     */
-    public String getFormat()
-    {
-        return format;
-    }
-    
-    /**
      * Set up a fresh iterator to provide access to the data.
      * This allows a single file of data to be processed
      * more than once.
@@ -155,7 +146,19 @@ public class LogfileReader implements Iterator<LogEntry>
         // How many simulated entries we want.
         int numEntries = 100;
         for(int i = 0; i < numEntries; i++) {
-            data.add(creator.createEntry());
+            LogEntry simulatedEntry = creator.createEntry();
+            int year = simulatedEntry.getYear();
+            if (year>= 2018 && year <= 2024) {
+                data.add(simulatedEntry);
+            }
         }
+    }
+      /**
+     * @return A string explaining the format of the data
+     *         in the log file.
+     */
+    public String getFormat()
+    {
+        return format;
     }
 }
